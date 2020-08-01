@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Aplikacja 3 pluton</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+</head>
+<body class="">
+  <div class="wrapper ">
+    <div class="sidebar" data-color="green" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
+      <div class="logo" style="text-align: center; color:green; "><a style="color: green" href="/">
+          3 pluton
+        </a></div>
+      <div class="sidebar-wrapper">
+      {% if user.is_authenticated %}
+        {% block ulContent %}
+        {% endblock %}
+      {% else %}
+        {% block ulContentNoUser %}
+        {% endblock %}
+      {% endif %}
+      </div>
+    </div>
+    {% if user.is_authenticated %}
+    {% block content %}
+    {% endblock %}
+    {% endif %}
+  </div>
+
+</body>
+</html>

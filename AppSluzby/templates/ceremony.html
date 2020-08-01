@@ -1,0 +1,85 @@
+
+{% extends "base.html" %}
+
+{% block ulContent %}
+    <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/">
+              <i class="material-icons">dashboard</i>
+              <p>Służby</p>
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/ceremony/">
+              <i class="material-icons">dashboard</i>
+              <p>Pedałówy</p>
+            </a>
+          </li>
+           <li class="nav-item">
+            <a class="nav-link" href="/dashboard/">
+              <i class="material-icons">dashboard</i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+        </ul>
+
+{% endblock %}
+
+
+
+
+{% block ulContentNoUser %}
+   <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/">
+              <i class="material-icons">dashboard</i>
+              <p>Służby</p>
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/ceremony/">
+              <i class="material-icons">dashboard</i>
+              <p>Pedałówy</p>
+            </a>
+          </li>
+        </ul>
+{% endblock %}
+
+{% block content %}
+    <div class="main-panel">
+      <div class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-12 col-md-12">
+              <div class="card">
+                <div class="card-header card-header-warning">
+                  <h4 class="card-title">Zestawienie na pedałówy </h4>
+                  <p class="card-category">Wszystkie godziny wpisane w system</p>
+                </div>
+                <div class="card-body table-responsive">
+                  <table class="table table-hover">
+                    <thead class="text-warning">
+                      <th>Lp.</th>
+                      <th>Imię</th>
+                      <th>Nazwisko</th>
+                      <th>Liczba godzin</th>
+                    </thead>
+                    <tbody>
+                      {% for p in all %}
+                          <tr>
+                            <td>{{ p.idPerson }}</td>
+                            <td>{{ p.name }}</td>
+                            <td><a href={% url 'detailsCeremony' id=p.idPerson %}>{{ p.surname }}</a></td>
+                            <td>{{ p.numberOfCeremony }}</td>
+                          </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+ {% endblock %}

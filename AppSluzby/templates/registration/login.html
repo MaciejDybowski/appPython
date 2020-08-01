@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block ulContent %}
+    <ul class="nav">
+          <li class="nav-item active  ">
+            <a class="nav-link" href="#">
+              <i class="material-icons">dashboard</i>
+              <p>Służby</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/ceremony/">
+              <i class="material-icons">dashboard</i>
+              <p>Pedałówy</p>
+            </a>
+          </li>
+        </ul>
+{% endblock %}
+
+{% block content %}
+     <div class="main-panel">
+      <div class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4">
+              <div class="card card-stats">
+                <div class="card-header card-header-warning card-header-icon">
+                  <div class="card-icon">
+                    <i class="material-icons">content_copy</i>
+                  </div>
+                  <h3 class="card-title">
+                      <form method="post" class="from-group">
+                        {% csrf_token %}
+                        {{form|crispy}}
+                        <button type="submit" class="btn btn-success">Zaloguj</button>
+                        </form>
+                  </h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}
+
+
+
+
+
