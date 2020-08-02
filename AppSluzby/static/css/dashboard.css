@@ -702,6 +702,7 @@ input[type="radio"],
 input[type="checkbox"] {
   box-sizing: border-box;
   padding: 0;
+  zoom:1.25;
 }
 
 input[type="date"],
@@ -17030,7 +17031,7 @@ a .material-icons {
 label {
   font-size: 14px;
   line-height: 1.42857;
-  color: #AAAAAA;
+  color: #6c757d;
   font-weight: 400;
 }
 

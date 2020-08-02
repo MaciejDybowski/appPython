@@ -12,7 +12,9 @@ urlpatterns = [
 
 
     url(r'^ceremony/$', views.CeremonyHomePage.as_view()),
+    url(r'^generator/$', views.GeneratorHomePage.as_view()),
     url(r'^dashboard/$', views.DashboardHomePage.as_view()),
     url(r'^details/(?P<id>[0-9]+)/', views.DetailsPage, name='details'),
     url(r'^detailsCeremony/(?P<id>[0-9]+)/', views.DetailsPageCeremony, name='detailsCeremony'),
+    url(r'^generateOrderToWord/$', views.generateOrderToWord, name='generateOrderToWord'),
 ]

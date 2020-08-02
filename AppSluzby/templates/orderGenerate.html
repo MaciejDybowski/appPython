@@ -1,0 +1,202 @@
+{% extends "baseLogin.html" %}
+
+{% block ulContent %}
+    <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/">
+              <i class="material-icons">dashboard</i>
+              <p>Służby</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/ceremony/">
+              <i class="material-icons">dashboard</i>
+              <p>Pedałówy</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/generator">
+              <i class="material-icons">dashboard</i>
+              <p>Generator rozkazów</p>
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/logout">
+              <i class="material-icons">dashboard</i>
+              <p>Wyloguj</p>
+            </a>
+          </li>
+        </ul>
+{% endblock %}
+
+{% block ulContentNoUser %}
+<ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/login">
+              <i class="material-icons">dashboard</i>
+              <p>Zaloguj</p>
+            </a>
+          </li>
+        </ul>
+{% endblock %}
+
+
+{% block content %}
+    <div class="main-panel">
+      <div class="content">
+        <div class="container-fluid">
+        <form action="{% url 'generateOrderToWord' %}" method="post">
+          {% csrf_token %}
+          <div class="row">
+              <div class="col-lg-6 col-md-6">
+              <div class="card">
+                <div class="card-header card-header-warning">
+                  <h4 class="card-title">Urlop nagrodowy</h4>
+                </div>
+                <div class="card-body table-responsive">
+                  <table class="table table-hover">
+                    <thead class="text-warning">
+                      <th>Lp.</th>
+                      <th>Stopień</th>
+                      <th>Imię</th>
+                      <th>Nazwisko</th>
+                      <th>Tak/Nie</th>
+                      <th>Inna data</th>
+                    </thead>
+                   <tbody>
+                      {% for p in all %}
+                        <tr>
+                            <td>{{ p.idSoldier }}</td>
+                            <td>{{ p.degree }}</td>
+                            <td>{{ p.name }}</td>
+                            <td><label for="{{ p.idSoldier }}un">{{ p.surname }}</label></td>
+                            <td><input type="checkbox" id="{{ p.idSoldier}}un" name="un" value={{ p.idSoldier }}></td>
+                            <td><input type="text" name="{{ p.idSoldier }}un"></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+              <div class="col-lg-6 col-md-6">
+              <div class="card">
+                <div class="card-header card-header-warning">
+                  <h4 class="card-title">Urlop okolicznościowy</h4>
+                </div>
+                <div class="card-body table-responsive">
+                  <table class="table table-hover">
+                    <thead class="text-warning">
+                      <th>Lp.</th>
+                      <th>Stopień</th>
+                      <th>Imię</th>
+                      <th>Nazwisko</th>
+                      <th>Tak/Nie</th>
+                      <th>Inna data</th>
+                    </thead>
+                    <tbody>
+                      {% for p in all %}
+                        <tr>
+                            <td>{{ p.idSoldier }}</td>
+                            <td>{{ p.degree }}</td>
+                            <td>{{ p.name }}</td>
+                            <td><label for="{{ p.idSoldier }}uo">{{ p.surname }}</label></td>
+                            <td><input type="checkbox" id="{{ p.idSoldier }}uo" name="uo" value={{ p.idSoldier }}></td>
+                            <td><input type="text" name="{{ p.idSoldier }}uo"></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+              <div class="col-lg-6 col-md-6">
+              <div class="card">
+                <div class="card-header card-header-warning">
+                  <h4 class="card-title">HDK</h4>
+                </div>
+                <div class="card-body table-responsive">
+                  <table class="table table-hover">
+                    <thead class="text-warning">
+                      <th>Lp.</th>
+                      <th>Stopień</th>
+                      <th>Imię</th>
+                      <th>Nazwisko</th>
+                      <th>Tak/Nie</th>
+                      <th>Inna data</th>
+                    </thead>
+                    <tbody>
+                      {% for p in all %}
+                        <tr>
+                            <td>{{ p.idSoldier }}</td>
+                            <td>{{ p.degree }}</td>
+                            <td>{{ p.name }}</td>
+                            <td><label for="{{ p.idSoldier }}hdk">{{ p.surname }}</label></td>
+                            <td><input type="checkbox" id="{{ p.idSoldier }}hdk" name="hdk" value={{ p.idSoldier }}></td>
+                            <td><input type="text" name="{{ p.idSoldier }}hdk"></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+              <div class="col-lg-6 col-md-6">
+              <div class="card">
+                <div class="card-header card-header-warning">
+                  <h4 class="card-title">Przpustka jednorazowa</h4>
+                </div>
+                <div class="card-body table-responsive">
+                  <table class="table table-hover">
+                    <thead class="text-warning">
+                      <th>Lp.</th>
+                      <th>Stopień</th>
+                      <th>Imię</th>
+                      <th>Nazwisko</th>
+                      <th>Tak/Nie</th>
+                      <th>Inna data</th>
+                    </thead>
+                    <tbody>
+                      {% for p in all %}
+                        <tr>
+                            <td>{{ p.idSoldier }}</td>
+                            <td>{{ p.degree }}</td>
+                            <td>{{ p.name }}</td>
+                            <td><label for="{{ p.idSoldier }}">{{ p.surname }}</label></td>
+                            <td><input type="checkbox" id={{ p.idSoldier }} name="pj" value={{ p.idSoldier }}></td>
+                            <td><input type="text" name="{{ p.idSoldier }}pj"></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4">
+              <div class="card card-stats">
+                <div class="card-header card-header-warning card-header-icon">
+                  <div class="card-icon">
+                    <i class="material-icons">content_copy</i>
+                  </div>
+                  <p class="card-category">Domyślna data</p>
+                  <h3 class="card-title">
+                      <input type="text" id="defaultDate" name="defaultDate">
+                  </h3>
+                </div>
+                <div class="card-footer">
+                </div>
+              </div>
+            </div>
+
+          </div>
+        <button type="submit" class="save btn btn-default">Save</button>
+        </form>
+        </div>
+      </div>
+    </div>
+ {% endblock %}

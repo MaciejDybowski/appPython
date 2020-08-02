@@ -37,3 +37,11 @@ class PersonOnCeremony(models.Model):
     idRegistration = models.AutoField(primary_key=True)
     idPerson = models.ForeignKey(Person, on_delete=models.CASCADE)
     idCeremony = models.ForeignKey(Ceremony, on_delete=models.CASCADE)
+
+
+class Soldier(models.Model):
+    idSoldier = models.AutoField(primary_key = True)
+    degree = models.CharField(max_length=30)
+    name = models.CharField(max_length=40)
+    surname = models.CharField(max_length=40)
+    date = models.CharField(max_length=40)
