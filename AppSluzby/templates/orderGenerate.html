@@ -4,25 +4,31 @@
     <ul class="nav">
           <li class="nav-item">
             <a class="nav-link" href="/">
-              <i class="material-icons">dashboard</i>
+              <i class="material-icons">military_tech</i>
               <p>Służby</p>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/ceremony/">
-              <i class="material-icons">dashboard</i>
-              <p>Pedałówy</p>
+              <i class="material-icons">reorder</i>
+              <p>Uroczystości</p>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/generator">
+          <li class="nav-item ">
+            <a class="nav-link" href="/dashboard">
               <i class="material-icons">dashboard</i>
-              <p>Generator rozkazów</p>
+              <p>Dashboard</p>
             </a>
           </li>
           <li class="nav-item active">
+            <a class="nav-link" href="/generator">
+              <i class="material-icons">description</i>
+              <p>Generator rozkazów</p>
+            </a>
+          </li>
+          <li class="nav-item ">
             <a class="nav-link" href="/logout">
-              <i class="material-icons">dashboard</i>
+              <i class="material-icons">login</i>
               <p>Wyloguj</p>
             </a>
           </li>
@@ -31,9 +37,9 @@
 
 {% block ulContentNoUser %}
 <ul class="nav">
-          <li class="nav-item">
+          <li class="nav-item active">
             <a class="nav-link" href="/login">
-              <i class="material-icons">dashboard</i>
+              <i class="material-icons">login</i>
               <p>Zaloguj</p>
             </a>
           </li>
@@ -42,13 +48,12 @@
 
 
 {% block content %}
-    <div class="main-panel">
       <div class="content">
         <div class="container-fluid">
         <form action="{% url 'generateOrderToWord' %}" method="post">
           {% csrf_token %}
           <div class="row">
-              <div class="col-lg-6 col-md-6">
+              <div class="col-lg-6 col-md-12">
               <div class="card">
                 <div class="card-header card-header-warning">
                   <h4 class="card-title">Urlop nagrodowy</h4>
@@ -61,7 +66,7 @@
                       <th>Imię</th>
                       <th>Nazwisko</th>
                       <th>Tak/Nie</th>
-                      <th>Inna data</th>
+                      <th>Data balnkietu</th>
                     </thead>
                    <tbody>
                       {% for p in all %}
@@ -71,7 +76,7 @@
                             <td>{{ p.name }}</td>
                             <td><label for="{{ p.idSoldier }}un">{{ p.surname }}</label></td>
                             <td><input type="checkbox" id="{{ p.idSoldier}}un" name="un" value={{ p.idSoldier }}></td>
-                            <td><input type="text" name="{{ p.idSoldier }}un"></td>
+                            <td><input type="text" name="{{ p.idSoldier }}un" placeholder="dd.mm-dd.mm.yy"></td>
                         </tr>
                     {% endfor %}
                     </tbody>
@@ -79,7 +84,7 @@
                 </div>
               </div>
             </div>
-              <div class="col-lg-6 col-md-6">
+              <div class="col-lg-6 col-md-12">
               <div class="card">
                 <div class="card-header card-header-warning">
                   <h4 class="card-title">Urlop okolicznościowy</h4>
@@ -92,7 +97,7 @@
                       <th>Imię</th>
                       <th>Nazwisko</th>
                       <th>Tak/Nie</th>
-                      <th>Inna data</th>
+                      <th>Data balnkietu</th>
                     </thead>
                     <tbody>
                       {% for p in all %}
@@ -102,7 +107,7 @@
                             <td>{{ p.name }}</td>
                             <td><label for="{{ p.idSoldier }}uo">{{ p.surname }}</label></td>
                             <td><input type="checkbox" id="{{ p.idSoldier }}uo" name="uo" value={{ p.idSoldier }}></td>
-                            <td><input type="text" name="{{ p.idSoldier }}uo"></td>
+                            <td><input type="text" name="{{ p.idSoldier }}uo" placeholder="dd.mm-dd.mm.yy"></td>
                         </tr>
                     {% endfor %}
                     </tbody>
@@ -112,7 +117,7 @@
             </div>
           </div>
           <div class="row">
-              <div class="col-lg-6 col-md-6">
+              <div class="col-lg-6 col-md-12">
               <div class="card">
                 <div class="card-header card-header-warning">
                   <h4 class="card-title">HDK</h4>
@@ -125,7 +130,7 @@
                       <th>Imię</th>
                       <th>Nazwisko</th>
                       <th>Tak/Nie</th>
-                      <th>Inna data</th>
+                      <th>Data balnkietu</th>
                     </thead>
                     <tbody>
                       {% for p in all %}
@@ -135,7 +140,7 @@
                             <td>{{ p.name }}</td>
                             <td><label for="{{ p.idSoldier }}hdk">{{ p.surname }}</label></td>
                             <td><input type="checkbox" id="{{ p.idSoldier }}hdk" name="hdk" value={{ p.idSoldier }}></td>
-                            <td><input type="text" name="{{ p.idSoldier }}hdk"></td>
+                            <td><input type="text" name="{{ p.idSoldier }}hdk" placeholder="dd.mm-dd.mm.yy"></td>
                         </tr>
                     {% endfor %}
                     </tbody>
@@ -143,7 +148,7 @@
                 </div>
               </div>
             </div>
-              <div class="col-lg-6 col-md-6">
+              <div class="col-lg-6 col-md-12">
               <div class="card">
                 <div class="card-header card-header-warning">
                   <h4 class="card-title">Przpustka jednorazowa</h4>
@@ -156,7 +161,7 @@
                       <th>Imię</th>
                       <th>Nazwisko</th>
                       <th>Tak/Nie</th>
-                      <th>Inna data</th>
+                      <th>Data balnkietu</th>
                     </thead>
                     <tbody>
                       {% for p in all %}
@@ -166,7 +171,7 @@
                             <td>{{ p.name }}</td>
                             <td><label for="{{ p.idSoldier }}">{{ p.surname }}</label></td>
                             <td><input type="checkbox" id={{ p.idSoldier }} name="pj" value={{ p.idSoldier }}></td>
-                            <td><input type="text" name="{{ p.idSoldier }}pj"></td>
+                            <td><input type="text" name="{{ p.idSoldier }}pj" placeholder="dd-dd.mm.yy"></td>
                         </tr>
                     {% endfor %}
                     </tbody>

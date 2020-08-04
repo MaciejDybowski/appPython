@@ -19,7 +19,7 @@ from AppSluzby.register import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^register/', views.register, name='register'),
-    url(r'^', include('AppSluzby.urls')),
-    url(r'^', include("django.contrib.auth.urls")),
+    url(r'^register/', views.register, name='register'),    #dla rejestrowania uzytkownika
+    url(r'^', include('AppSluzby.urls')),                   # podlinkowanie naszej aplikacji
+    url(r'^', include("django.contrib.auth.urls")),         # podlinkowanie autoryzacji uzytkownika
 ]

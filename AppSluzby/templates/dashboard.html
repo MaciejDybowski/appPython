@@ -4,25 +4,31 @@
     <ul class="nav">
           <li class="nav-item">
             <a class="nav-link" href="/">
-              <i class="material-icons">dashboard</i>
+              <i class="material-icons">military_tech</i>
               <p>Służby</p>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/ceremony/">
+              <i class="material-icons">reorder</i>
+              <p>Uroczystości</p>
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/dashboard">
               <i class="material-icons">dashboard</i>
-              <p>Pedałówy</p>
+              <p>Dashboard</p>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/generator">
-              <i class="material-icons">dashboard</i>
+              <i class="material-icons">description</i>
               <p>Generator rozkazów</p>
             </a>
           </li>
-          <li class="nav-item active">
+          <li class="nav-item ">
             <a class="nav-link" href="/logout">
-              <i class="material-icons">dashboard</i>
+              <i class="material-icons">login</i>
               <p>Wyloguj</p>
             </a>
           </li>
@@ -33,7 +39,7 @@
 <ul class="nav">
           <li class="nav-item">
             <a class="nav-link" href="/login">
-              <i class="material-icons">dashboard</i>
+              <i class="material-icons">login</i>
               <p>Zaloguj</p>
             </a>
           </li>
@@ -42,59 +48,62 @@
 
 
 {% block content %}
-<div class="main-panel">
+
       <div class="content">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-4">
+            <div class="col-lg-4 col-md-6 col-sm-12">
               <div class="card card-stats">
                 <div class="card-header card-header-warning card-header-icon">
                   <div class="card-icon">
-                    <i class="material-icons">content_copy</i>
+                    <i class="material-icons">group_add</i>
                   </div>
                   <p class="card-category">Dodaj osobę</p>
+                <br>
                   <h3 class="card-title">
                       {% block formPerson %}
                         <form method="POST" action="{% url 'addPerson' %}" class="post-form">{% csrf_token %}
                             {{ personForm.as_p }}
-                            <button type="submit" class="save btn btn-default">Save</button>
+                            <button type="submit" class="save btn btn-default">Dodaj</button>
                         </form>
                     {% endblock %}
                   </h3>
                 </div>
               </div>
             </div>
-            <div class="col-lg-4 col-md-4 col-sm-4">
+            <div class="col-lg-4 col-md-6 col-sm-12">
               <div class="card card-stats">
                 <div class="card-header card-header-warning card-header-icon">
                   <div class="card-icon">
-                    <i class="material-icons">content_copy</i>
+                    <i class="material-icons">tour</i>
                   </div>
                   <p class="card-category">Dodaj służbę</p>
+                    <br>
                   <h3 class="card-title">
                       {% block formDuty %}
                         <form method="POST" action="{% url 'addDuty' %}" class="post-form">{% csrf_token %}
                             {{ dutyForm.as_p }}
-                            <p>yyyy-mm-dd</p>
-                            <button type="submit" class="save btn btn-default">Save</button>
+
+                            <button type="submit" class="save btn btn-default">Dodaj</button>
                         </form>
                     {% endblock %}
                   </h3>
                 </div>
               </div>
             </div>
-            <div class="col-lg-4 col-md-4 col-sm-4">
+            <div class="col-lg-4 col-md-6 col-sm-12">
               <div class="card card-stats">
                 <div class="card-header card-header-warning card-header-icon">
                   <div class="card-icon">
-                    <i class="material-icons">content_copy</i>
+                    <i class="material-icons">cake</i>
                   </div>
-                  <p class="card-category">Dodaj służbę</p>
+                  <p class="card-category">Dodaj uroczystość</p>
+                <br>
                   <h3 class="card-title">
                       {% block ceremonyForm %}
                         <form method="POST" action="{% url 'addCeremony' %}" class="post-form">{% csrf_token %}
                             {{ ceremonyForm.as_p }}
-                            <button type="submit" class="save btn btn-default">Save</button>
+                            <button type="submit" class="save btn btn-default">Dodaj</button>
                         </form>
                     {% endblock %}
                   </h3>
@@ -103,25 +112,26 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-4">
+            <div class="col-lg-4 col-md-6 col-sm-12">
               <div class="card card-stats">
                 <div class="card-header card-header-warning card-header-icon">
                   <div class="card-icon">
-                    <i class="material-icons">content_copy</i>
+                    <i class="material-icons">military_tech</i>
                   </div>
                   <p class="card-category">Dodaj osobie służbę</p>
+                <br>
                   <h3 class="card-title">
                       {% block personOnDutyForm %}
                         <form method="POST" action="{% url 'addToDuty2' %}" class="post-form">{% csrf_token %}
                             {{ personOnDutyForm.as_p }}
-                            <button type="submit" class="save btn btn-default">Save</button>
+                            <button type="submit" class="save btn btn-default">Dodaj</button>
                         </form>
                     {% endblock %}
                   </h3>
                 </div>
               </div>
             </div>
-            <div class="col-lg-4 col-md-4">
+            <div class="col-lg-4 col-md-6 col-sm-12">
               <div class="card">
                 <div class="card-header card-header-warning">
                   <h4 class="card-title">Ludzie</h4>
@@ -130,12 +140,14 @@
                   <table class="table table-hover">
                     <thead class="text-warning">
                       <th>ID</th>
+                      <th>Imię</th>
                       <th>Nazwisko</th>
                     </thead>
                     <tbody>
                         {% for p in personList %}
                             <tr>
                                 <td>{{p.idPerson}}</td>
+                                <td>{{ p.name }}</td>
                                 <td>{{ p.surname }}</td>
                             </tr>
                       {% endfor %}
@@ -144,7 +156,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-4 col-md-4">
+            <div class="col-lg-4 col-md-6 col-sm-12">
               <div class="card">
                 <div class="card-header card-header-warning">
                   <h4 class="card-title">Służby</h4>
@@ -171,25 +183,26 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-4">
+            <div class="col-lg-4 col-md-6 col-sm-12">
               <div class="card card-stats">
                 <div class="card-header card-header-warning card-header-icon">
                   <div class="card-icon">
-                    <i class="material-icons">content_copy</i>
+                    <i class="material-icons">cake</i>
                   </div>
-                  <p class="card-category">Dodaj osobie pedałówę</p>
+                  <p class="card-category">Dodaj osobie uroczystość</p>
+                <br>
                   <h3 class="card-title">
                       {% block personOnCeremonyForm %}
                         <form method="POST" action="{% url 'addPersonToCeremony' %}" class="post-form">{% csrf_token %}
                             {{ personOnCeremonyForm.as_p }}
-                            <button type="submit" class="save btn btn-default">Save</button>
+                            <button type="submit" class="save btn btn-default">Dodaj</button>
                         </form>
                     {% endblock %}
                   </h3>
                 </div>
               </div>
             </div>
-            <div class="col-lg-4 col-md-4">
+            <div class="col-lg-4 col-md-6 col-sm-12">
               <div class="card">
                 <div class="card-header card-header-warning">
                   <h4 class="card-title">Ludzie</h4>
@@ -198,12 +211,14 @@
                   <table class="table table-hover">
                     <thead class="text-warning">
                       <th>ID</th>
+                      <th>Imię</th>
                       <th>Nazwisko</th>
                     </thead>
                     <tbody>
                         {% for p in personList %}
                             <tr>
                                 <td>{{p.idPerson}}</td>
+                                <td>{{p.name }}</td>
                                 <td>{{ p.surname }}</td>
                             </tr>
                       {% endfor %}
@@ -212,7 +227,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-4 col-md-4">
+            <div class="col-lg-4 col-md-6 col-sm-12">
               <div class="card">
                 <div class="card-header card-header-warning">
                   <h4 class="card-title">Służby</h4>

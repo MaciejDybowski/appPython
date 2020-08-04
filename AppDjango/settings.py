@@ -37,9 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'AppSluzby.apps.AppsluzbyConfig',
-    'AppSluzby.register.apps.RegisterConfig',
-    'crispy_forms',
+    'AppSluzby.apps.AppsluzbyConfig',               # Nasza aplikacja domyślnie zainstalowana
+    'AppSluzby.register.apps.RegisterConfig',       # Dla formularza logowania i rejestracji
+    'crispy_forms',                                 # Formularze dla logowania i rejestracji
 ]
 
 MIDDLEWARE = [
@@ -108,7 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = "Europe/Paris"
 
 USE_I18N = True
 
@@ -120,7 +120,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
-CRISPY_TEMPLATE_PACK="bootstrap4"
-LOGIN_REDIRECT_URL = "/dashboard/"
-LOGOUT_REDIRECT_URL = "/"
+STATIC_URL = '/static/'                 #wskazanie gdzie ssnajduje sie css
+CRISPY_TEMPLATE_PACK="bootstrap4"       #dla crispy Forms
+LOGIN_REDIRECT_URL = "/dashboard/"      #gdzie ma przekierowac po zalogowaniu
+LOGOUT_REDIRECT_URL = "/"               #gdzie ma przekierowac po wylogowaniu

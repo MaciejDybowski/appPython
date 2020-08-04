@@ -4,24 +4,35 @@
     <ul class="nav">
           <li class="nav-item">
             <a class="nav-link" href="/">
-              <i class="material-icons">dashboard</i>
+              <i class="material-icons">military_tech</i>
               <p>Służby</p>
             </a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="#">
-              <i class="material-icons">dashboard</i>
-              <p>Pedałówy</p>
+            <a class="nav-link" href="/ceremony/">
+              <i class="material-icons">reorder</i>
+              <p>Uroczystości</p>
             </a>
           </li>
-           <li class="nav-item">
-            <a class="nav-link" href="/dashboard/">
+          <li class="nav-item ">
+            <a class="nav-link" href="/dashboard">
               <i class="material-icons">dashboard</i>
               <p>Dashboard</p>
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/generator">
+              <i class="material-icons">description</i>
+              <p>Generator rozkazów</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">
+              <i class="material-icons">login</i>
+              <p>Wyloguj</p>
+            </a>
+          </li>
         </ul>
-
 {% endblock %}
 
 
@@ -31,29 +42,29 @@
    <ul class="nav">
           <li class="nav-item">
             <a class="nav-link" href="/">
-              <i class="material-icons">dashboard</i>
+              <i class="material-icons">military_tech</i>
               <p>Służby</p>
             </a>
           </li>
           <li class="nav-item active">
             <a class="nav-link" href="/ceremony/">
-              <i class="material-icons">dashboard</i>
-              <p>Pedałówy</p>
+              <i class="material-icons">reorder</i>
+              <p>Uroczystości</p>
             </a>
           </li>
         </ul>
 {% endblock %}
 
 {% block content %}
-    <div class="main-panel">
+
       <div class="content">
         <div class="container-fluid">
           <div class="row">
             <div class="col-lg-12 col-md-12">
               <div class="card">
                 <div class="card-header card-header-warning">
-                  <h4 class="card-title">{{ person.name }} {{ person.surname }} </h4>
-                  <p class="card-category">Wszystkie pedałówy wpisane w system</p>
+                  <h4 class="card-title">{{ person.degree }} {{ person.name }} {{ person.surname }} </h4>
+                  <p class="card-category">Wszystkie udziały w uroczystościach wpisane w system</p>
                 </div>
                 <div class="card-body table-responsive">
                   <table class="table table-hover">

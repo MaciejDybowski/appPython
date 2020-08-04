@@ -16,6 +16,15 @@
 .card {
   font-size: .875rem;
 }
+.customTableDybek td{
+  color:black
+}
+
+input::-webkit-input-placeholder {
+    font-size: 13px;
+    padding: 8px;
+    line-height: 5;
+}
 
 *,
 *::before,

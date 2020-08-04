@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 class Person(models.Model):
     idPerson = models.AutoField(primary_key=True)
+    degree = models.CharField(max_length=40)
     name = models.CharField(max_length=40)
     surname = models.CharField(max_length=40)
     numberOfDuty = models.FloatField(default=0)

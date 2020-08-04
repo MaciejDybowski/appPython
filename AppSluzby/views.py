@@ -1,4 +1,3 @@
-import null as null
 from django.db.models.functions import Coalesce
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -17,7 +16,9 @@ from docx.enum.table import WD_TABLE_ALIGNMENT
 
 
 # Create your views here.
-def counter(type):
+
+def counter(type):  # funkcja typu switch case bo nie pythonie nie ma domyslnie switcha - wykorzystywana do obliczania
+                    # sluzb dla kazej osoby
     switcher = {
         'Kmp': 1,
         'Sto': 0.5,
@@ -45,6 +46,7 @@ class HomePageView(TemplateView):
                                   numberOfCeremony=ceremonyTemp)
             i = i + 1"""
 
+        # pobieranie listy osob i liczenie ile maja sluzb
         personList = Person.objects.all()
         for i in personList:
             numberOfDuty = 0.0
@@ -53,29 +55,30 @@ class HomePageView(TemplateView):
                 numberOfDuty += counter(p.idDuty.typeOfDuty)
             i.numberOfDuty = numberOfDuty
             i.save()
+        # koniec liczenia
 
-
-        person = Person.objects.order_by(Coalesce('numberOfDuty','surname').desc())
-        best = person[:5]
-        person = Person.objects.order_by(Coalesce('numberOfDuty', 'surname').asc())
-        worst = person[:5]
+        person = Person.objects.order_by(Coalesce('numberOfDuty','surname').desc())     #lista wszystkich osob sortowana
+        best = person[:5]   # pobranie tylko 5 pierwszych indeksow
+        person = Person.objects.order_by(Coalesce('numberOfDuty', 'surname').asc()) # lista wszystkch sortowana asc
+        worst = person[:5]  # pobranie tylko 5 pierwszych indeksow
         return render(request, 'index.html', {'best': best,'worst':worst,'all':personList})
 
 
 def DetailsPage(request,id):
-    person = Person.objects.get(idPerson=id)
-    dutys = PersonOnDuty.objects.filter(idPerson=id)
+    person = Person.objects.get(idPerson=id)            #pobreanie osoby dla wyswietlenie szczegolow personalnych
+    dutys = PersonOnDuty.objects.filter(idPerson=id)    #pobranie wszystych sluzb danej osoby dla tabeli
     return render(request, 'details.html', {'person':person,'dutys':dutys})
 
 
 def DetailsPageCeremony(request,id):
-    person = Person.objects.get(idPerson=id)
-    dutys = PersonOnCeremony.objects.filter(idPerson=id)
+    person = Person.objects.get(idPerson=id)    #pobreanie osoby dla wyswietlenie szczegolow personalnych
+    dutys = PersonOnCeremony.objects.filter(idPerson=id)    #pobranie wszystych pedalow danej osoby dla tabeli
     return render(request, 'detailsCeremony.html', {'person':person,'dutys':dutys})
 
 class CeremonyHomePage(TemplateView):
     def get(self, request, **kwargs):
 
+        # pobranie listy wszystkich osob i policzenie ile laczenie maja godzin spedzonych na pedalowach
         personList = Person.objects.all()
         for i in personList:
             numberOfDuration = 0.0
@@ -84,14 +87,16 @@ class CeremonyHomePage(TemplateView):
                 numberOfDuration += p.idCeremony.duration
             i.numberOfCeremony = numberOfDuration
             i.save()
+        # koniec listy osob
 
-        personList.order_by(Coalesce('numberOfCeremony', 'surname').desc())
+        personList.order_by(Coalesce('numberOfCeremony', 'surname').desc()) #sortowanie listy ze wzgledu na nazwiska
         return render(request, 'ceremony.html', {'all':personList})
 
 
 class DashboardHomePage(TemplateView):
     def get(self, request, **kwargs):
-        return allInOne(request)
+        return allInOne(request) # funkcja zwracajaca witok gdzie sa przygotowane wszystkie formularze
+                                # wywolywana po kazdym formularzu na dashboardzie do dodawania slub/pedalow/ludzi itp
 
 def allInOne(request):
     personForm = PersonForm()
@@ -114,14 +119,14 @@ def allInOne(request):
 
 
 def addPerson(request):
-    if request.method == 'POST':
+    if request.method == 'POST':                    #funkcja wywolana po formularzu dodawania osoby
         form = PersonForm(request.POST)
         if form.is_valid():
-            person = form.save(commit=False)
-            person.numberOfDuty = 0
+            person = form.save(commit=False)        # = nie zapisuj odrazu po sprawdzeniu walidacji
+            person.numberOfDuty = 0                 #domyslnie ustaw sluzby na 0 i pedalowy na 0
             person.numberOfCeremony = 0
             person.save()
-            return allInOne(request)
+            return redirect('/dashboard')
         else:
             html = '<h1>Wystapil blad</h1>'
             return HttpResponse(html)
@@ -131,7 +136,7 @@ def addDuty(request):
         form = DutyForm(request.POST)
         if form.is_valid():
             form.save()
-            return allInOne(request)
+            return redirect('/dashboard')
         else:
             html = '<h1>Wystapil blad</h1>'
             return HttpResponse(html)
@@ -142,7 +147,8 @@ def addCeremony(request):
         form = CeremonyForm(request.POST)
         if form.is_valid():
             form.save()
-            return allInOne(request)
+
+            return redirect('/dashboard')
         else:
             html = '<h1>Wystapil blad</h1>'
             return HttpResponse(html)
@@ -152,7 +158,7 @@ def addPersonToCeremony(request):
         form = PersonOnCeremonyForm(request.POST)
         if form.is_valid():
             form.save()
-            return allInOne(request)
+            return redirect('/dashboard')
         else:
             html = '<h1>Wystapil blad</h1>'
             return HttpResponse(html)
@@ -163,15 +169,17 @@ def addToDuty(request):
         form = PersonOnDutyForm(request.POST)
         if form.is_valid():
             form.save()
-            return allInOne(request)
+            return redirect('/dashboard')
         else:
             html = '<h1>Wystapil blad</h1>'
             return HttpResponse(html)
 
 
-class GeneratorHomePage(TemplateView):
+class GeneratorHomePage(TemplateView):                          #strona dla generatora PJ
     def get(self, request, **kwargs):
-        all = Soldier.objects.all().order_by('idSoldier')
+        all = Soldier.objects.all().order_by('idSoldier')       #wszyscy z kompanii sotrowani po id
+                                                                #wszelkie zmiany nalezy robic poprzez usuniecie i
+                                                                #zaimportowanie nowego excela z danymi
         return render(request, 'orderGenerate.html', {'all':all})
 
 
@@ -226,11 +234,12 @@ def generateOrderToWord(request):
             if len(pjList) != 0:
                 makePJ(request,pjList,doc)
 
+            # ustawienie aby Word był pobieralny ze strony
             response = HttpResponse(
                 content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
             response['Content-Disposition'] = 'attachment; filename=ListaPj.docx'
             doc.save(response)
-            #doc.save('Automat PJ.docx')
+
         return response
 
 def makeHeadline(doc):

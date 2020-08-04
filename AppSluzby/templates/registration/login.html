@@ -1,25 +1,25 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 
-{% block ulContent %}
+{% block ulContentNoUser %}
     <ul class="nav">
           <li class="nav-item active  ">
             <a class="nav-link" href="#">
-              <i class="material-icons">dashboard</i>
+              <i class="material-icons">military_tech</i>
               <p>Służby</p>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/ceremony/">
-              <i class="material-icons">dashboard</i>
-              <p>Pedałówy</p>
+              <i class="material-icons">reorder</i>
+              <p>Uroczystości</p>
             </a>
           </li>
         </ul>
 {% endblock %}
 
 {% block content %}
-     <div class="main-panel">
+
       <div class="content">
         <div class="container-fluid">
           <div class="row">
@@ -27,9 +27,12 @@
               <div class="card card-stats">
                 <div class="card-header card-header-warning card-header-icon">
                   <div class="card-icon">
-                    <i class="material-icons">content_copy</i>
+                    <i class="material-icons">person</i>
                   </div>
                   <h3 class="card-title">
+                      <p class="card-category">Panel logowania</p>
+                      <br>
+                      <br>
                       <form method="post" class="from-group">
                         {% csrf_token %}
                         {{form|crispy}}

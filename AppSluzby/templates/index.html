@@ -2,22 +2,34 @@
 
 {% block ulContent %}
     <ul class="nav">
-          <li class="nav-item active  ">
+          <li class="nav-item active">
             <a class="nav-link" href="/">
-              <i class="material-icons">dashboard</i>
+              <i class="material-icons">military_tech</i>
               <p>Służby</p>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/ceremony/">
+              <i class="material-icons">reorder</i>
+              <p>Uroczystości</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="/dashboard">
               <i class="material-icons">dashboard</i>
-              <p>Pedałówy</p>
+              <p>Dashboard</p>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/dashboard/">
-              <i class="material-icons">dashboard</i>
-              <p>Dashboard</p>
+            <a class="nav-link" href="/generator">
+              <i class="material-icons">description</i>
+              <p>Generator rozkazów</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">
+              <i class="material-icons">login</i>
+              <p>Wyloguj</p>
             </a>
           </li>
         </ul>
@@ -28,82 +40,129 @@
    <ul class="nav">
           <li class="nav-item active  ">
             <a class="nav-link" href="#">
-              <i class="material-icons">dashboard</i>
+              <i class="material-icons">military_tech</i>
               <p>Służby</p>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/ceremony/">
-              <i class="material-icons">dashboard</i>
-              <p>Pedałówy</p>
+              <i class="material-icons">reorder</i>
+              <p>Uroczystości</p>
             </a>
           </li>
         </ul>
 {% endblock %}
 
 {% block content %}
-<div class="main-panel">
+
       <div class="content">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-4">
+            <div class="col-lg-4 col-md-12 col-sm-12">
               <div class="card card-stats">
                 <div class="card-header card-header-warning card-header-icon">
                   <div class="card-icon">
-                    <i class="material-icons">content_copy</i>
+                    <i class="material-icons">military_tech</i>
                   </div>
                   <p class="card-category">Najwięcej służb</p>
-                  <h3 class="card-title">
-                      {% for p in best %}
-                          <p> {{p.surname}} {{ p.numberOfDuty }}</p>
-                      {% endfor %}
-                  </h3>
+                    <table class="table table-hover">
+                        <thead class="text-warning">
+                          <th>Stopień</th>
+                          <th>Imię</th>
+                          <th>Nazwisko</th>
+                          <th>Liczba służb</th>
+                        </thead>
+                        <tbody class="customTableDybek">
+                          {% for p in best %}
+                              <tr>
+                                <td>{{ p.degree }}</td>
+                                <td>{{ p.name }}</td>
+                                <td><a href={% url 'details' id=p.idPerson %}>{{ p.surname }}</a></td>
+                                <td>{{ p.numberOfDuty }}</td>
+                              </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
                 </div>
                 <div class="card-footer">
                   <div class="stats">
-                    <i class="material-icons">update</i> {% now "jS F Y H:i" %}
+                    <i class="material-icons">update</i>Aktualizacja: {% now "jS F Y H:i" %}
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-lg-4 col-md-4 col-sm-4">
+            <div class="col-lg-4 col-md-12 col-sm-12">
               <div class="card card-stats">
                 <div class="card-header card-header-warning card-header-icon">
                   <div class="card-icon">
-                    <i class="material-icons">content_copy</i>
+                    <i class="material-icons">close</i>
                   </div>
                   <p class="card-category">Najmniej służb</p>
-                  <h3 class="card-title">
-                      {% for p in worst %}
-                          <p> {{p.surname}} {{ p.numberOfDuty }}</p>
-                      {% endfor %}
-                  </h3>
+                    <table class="table table-hover">
+                        <thead class="text-warning">
+                          <th>Stopień</th>
+                          <th>Imię</th>
+                          <th>Nazwisko</th>
+                          <th>Liczba służb</th>
+                        </thead>
+                        <tbody class="customTableDybek">
+                          {% for p in worst %}
+                              <tr>
+                                <td>{{ p.degree }}</td>
+                                <td>{{ p.name }}</td>
+                                <td><a href={% url 'details' id=p.idPerson %}>{{ p.surname }}</a></td>
+                                <td>{{ p.numberOfDuty }}</td>
+                              </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
                 </div>
                 <div class="card-footer">
                   <div class="stats">
-                    <i class="material-icons">update</i> {% now "jS F Y H:i" %}
+                    <i class="material-icons">update</i>Aktualizacja: {% now "jS F Y H:i" %}
                   </div>
                 </div>
               </div>
             </div>
-          <div class="col-lg-4 col-md-4 col-sm-4">
+            <div class="col-lg-4 col-md-12 col-sm-12">
               <div class="card card-stats">
                 <div class="card-header card-header-warning card-header-icon">
                   <div class="card-icon">
-                    <i class="material-icons">content_copy</i>
+                    <i class="material-icons">library_books</i>
                   </div>
-                  <p class="card-category">Legenda</p>
-                  <h3 class="card-title">
-                      <p>Kompania = 1</p>
-                      <p>Strzelnica = 1</p>
-                      <p>Batalionowa = 1</p>
-                      <p>PST = 1</p>
-                      <p>Stołówka = 0.5</p>
-                  </h3>
+                  <p class="card-category">Legenda obliczeń</p>
+                    <table class="table table-hover">
+                        <thead class="text-warning">
+                          <th>Typ</th>
+                          <th>Wartość</th>
+                        </thead>
+                        <tbody class="customTableDybek">
+                        <tr>
+                            <td>Kompania</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>Batalion</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>Strzelnica</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>PST</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>Stołówka</td>
+                            <td>0.5</td>
+                        </tr>
+                        </tbody>
+                      </table>
                 </div>
                 <div class="card-footer">
                   <div class="stats">
-                    <i class="material-icons">update</i> {% now "jS F Y H:i" %}
+                    <i class="material-icons">update</i>Aktualizacja: {% now "jS F Y H:i" %}
                   </div>
                 </div>
               </div>
@@ -114,12 +173,13 @@
               <div class="card">
                 <div class="card-header card-header-warning">
                   <h4 class="card-title">Statystyki</h4>
-                  <p class="card-category">Ranking służb liczone wszystkie(zwykłe + stołówka + pst itp itd.)</p>
+                  <p class="card-category">Pełen ranking służb</p>
                 </div>
                 <div class="card-body table-responsive">
                   <table class="table table-hover">
                     <thead class="text-warning">
                       <th>ID</th>
+                      <th>Stopień</th>
                       <th>Imię</th>
                       <th>Nazwisko</th>
                       <th>Liczba służb</th>
@@ -128,6 +188,7 @@
                       {% for p in all %}
                           <tr>
                             <td>{{ p.idPerson }}</td>
+                            <td>{{ p.degree }}</td>
                             <td>{{ p.name }}</td>
                             <td><a href={% url 'details' id=p.idPerson %}>{{ p.surname }}</a></td>
                             <td>{{ p.numberOfDuty }}</td>
