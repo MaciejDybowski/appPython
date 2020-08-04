@@ -58,7 +58,7 @@
       <div class="content">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-lg-4 col-md-12 col-sm-12">
+            <div class="col-lg-6 col-md-12 col-sm-12">
               <div class="card card-stats">
                 <div class="card-header card-header-warning card-header-icon">
                   <div class="card-icon">
@@ -67,7 +67,6 @@
                   <p class="card-category">Najwięcej służb</p>
                     <table class="table table-hover">
                         <thead class="text-warning">
-                          <th>Stopień</th>
                           <th>Imię</th>
                           <th>Nazwisko</th>
                           <th>Liczba służb</th>
@@ -75,7 +74,6 @@
                         <tbody class="customTableDybek">
                           {% for p in best %}
                               <tr>
-                                <td>{{ p.degree }}</td>
                                 <td>{{ p.name }}</td>
                                 <td><a href={% url 'details' id=p.idPerson %}>{{ p.surname }}</a></td>
                                 <td>{{ p.numberOfDuty }}</td>
@@ -91,7 +89,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-4 col-md-12 col-sm-12">
+            <div class="col-lg-6 col-md-12 col-sm-12">
               <div class="card card-stats">
                 <div class="card-header card-header-warning card-header-icon">
                   <div class="card-icon">
@@ -100,7 +98,6 @@
                   <p class="card-category">Najmniej służb</p>
                     <table class="table table-hover">
                         <thead class="text-warning">
-                          <th>Stopień</th>
                           <th>Imię</th>
                           <th>Nazwisko</th>
                           <th>Liczba służb</th>
@@ -108,7 +105,6 @@
                         <tbody class="customTableDybek">
                           {% for p in worst %}
                               <tr>
-                                <td>{{ p.degree }}</td>
                                 <td>{{ p.name }}</td>
                                 <td><a href={% url 'details' id=p.idPerson %}>{{ p.surname }}</a></td>
                                 <td>{{ p.numberOfDuty }}</td>
@@ -124,7 +120,42 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-4 col-md-12 col-sm-12">
+
+          </div>
+          <div class="row">
+            <div class="col-lg-12 col-md-12">
+              <div class="card">
+                <div class="card-header card-header-warning">
+                  <h4 class="card-title">Statystyki</h4>
+                  <p class="card-category">Pełen ranking służb</p>
+                </div>
+                <div class="card-body table-responsive">
+                  <table class="table table-hover">
+                    <thead class="text-warning">
+                      <th>ID</th>
+                      <th>Stopień</th>
+                      <th>Imię</th>
+                      <th>Nazwisko</th>
+                      <th>Liczba służb</th>
+                    </thead>
+                    <tbody>
+                      {% for p in all %}
+                          <tr>
+                            <td>{{ p.idPerson }}</td>
+                            <td>{{ p.degree }}</td>
+                            <td>{{ p.name }}</td>
+                            <td><a href={% url 'details' id=p.idPerson %}>{{ p.surname }}</a></td>
+                            <td>{{ p.numberOfDuty }}</td>
+                          </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-12 col-sm-12">
               <div class="card card-stats">
                 <div class="card-header card-header-warning card-header-icon">
                   <div class="card-icon">
@@ -167,39 +198,7 @@
                 </div>
               </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-12 col-md-12">
-              <div class="card">
-                <div class="card-header card-header-warning">
-                  <h4 class="card-title">Statystyki</h4>
-                  <p class="card-category">Pełen ranking służb</p>
-                </div>
-                <div class="card-body table-responsive">
-                  <table class="table table-hover">
-                    <thead class="text-warning">
-                      <th>ID</th>
-                      <th>Stopień</th>
-                      <th>Imię</th>
-                      <th>Nazwisko</th>
-                      <th>Liczba służb</th>
-                    </thead>
-                    <tbody>
-                      {% for p in all %}
-                          <tr>
-                            <td>{{ p.idPerson }}</td>
-                            <td>{{ p.degree }}</td>
-                            <td>{{ p.name }}</td>
-                            <td><a href={% url 'details' id=p.idPerson %}>{{ p.surname }}</a></td>
-                            <td>{{ p.numberOfDuty }}</td>
-                          </tr>
-                      {% endfor %}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
             </div>
-          </div>
         </div>
       </div>
     </div>

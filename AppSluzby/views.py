@@ -31,19 +31,34 @@ def counter(type):  # funkcja typu switch case bo nie pythonie nie ma domyslnie 
 
 class HomePageView(TemplateView):
     def get(self, request, **kwargs):
-        """loc = ("Pluton.xlsx")
+        """import xlrd
+        loc = ("Pluton.xlsx")
         wb = xlrd.open_workbook(loc)
         sheet = wb.sheet_by_index(0)
         rows = sheet.nrows
         i = 0
         while i < rows:
-            idTemp = sheet.cell_value(i, 0)
+            degreeTemp = sheet.cell_value(i,0)
             nameTemp = sheet.cell_value(i, 1)
             surnameTemp = sheet.cell_value(i, 2)
             dutyTemp = sheet.cell_value(i,3)
             ceremonyTemp = sheet.cell_value(i,4)
-            Person.objects.create(idPerson=idTemp, name=nameTemp,surname=surnameTemp,numberOfDuty=dutyTemp,
+            Person.objects.create(degree=degreeTemp, name=nameTemp,surname=surnameTemp,numberOfDuty=dutyTemp,
                                   numberOfCeremony=ceremonyTemp)
+            i = i + 1
+
+
+        loc = ("Dane.xlsx")
+        wb = xlrd.open_workbook(loc)
+        sheet = wb.sheet_by_index(0)
+
+        i = 0
+        while i < sheet.nrows:
+            tSoldier = Soldier()
+            tSoldier.degree = sheet.cell_value(i, 0)
+            tSoldier.name = sheet.cell_value(i, 1)
+            tSoldier.surname = sheet.cell_value(i, 2)
+            tSoldier.save()
             i = i + 1"""
 
         # pobieranie listy osob i liczenie ile maja sluzb
@@ -185,19 +200,7 @@ class GeneratorHomePage(TemplateView):                          #strona dla gene
 
 """
 import z pliku excela
-        import xlrd
-        loc = ("Dane.xlsx")
-        wb = xlrd.open_workbook(loc)
-        sheet = wb.sheet_by_index(0)
-
-        i = 0
-        while i < sheet.nrows:
-            tSoldier = Soldier()
-            tSoldier.degree = sheet.cell_value(i,0)
-            tSoldier.name = sheet.cell_value(i,1)
-            tSoldier.surname = sheet.cell_value(i,2)
-            tSoldier.save()
-            i = i+1
+        
 """
 
 
