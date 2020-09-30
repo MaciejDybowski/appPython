@@ -13,6 +13,9 @@ from docx import Document
 from docx.shared import Pt,Cm,Inches
 import json
 from docx.enum.table import WD_TABLE_ALIGNMENT
+from docx.enum.text import WD_ALIGN_PARAGRAPH
+from datetime import date,timedelta
+
 
 
 # Create your views here.
@@ -24,15 +27,16 @@ def counter(type):  # funkcja typu switch case bo nie pythonie nie ma domyslnie 
         'Sto': 0.5,
         'Str': 1,
         'Pst': 1,
-        'Bat': 1
+        'Bat': 1,
+        'War': 1
     }
     return switcher.get(type, "Invalid input")
 
 
 class HomePageView(TemplateView):
     def get(self, request, **kwargs):
-        """import xlrd
-        loc = ("Pluton.xlsx")
+        import xlrd
+        """loc = ("Pluton.xlsx")
         wb = xlrd.open_workbook(loc)
         sheet = wb.sheet_by_index(0)
         rows = sheet.nrows
@@ -198,16 +202,18 @@ class GeneratorHomePage(TemplateView):                          #strona dla gene
         return render(request, 'orderGenerate.html', {'all':all})
 
 
-"""
-import z pliku excela
-        
-"""
-
-
 def generateOrderToWord(request):
         if request.method == 'POST':
             # tworzenie nowego dokumetu
             doc = Document()
+            paragraph = doc.add_paragraph()
+            sections = doc.sections
+            for section in sections:
+                section.top_margin = Cm(0)
+                section.bottom_margin = Cm(1.5)
+                section.left_margin = Cm(1.25)
+                section.right_margin = Cm(1.5)
+
             makeHeadline(doc)
 
             uoList = request.POST.getlist('uo')
@@ -271,6 +277,54 @@ def makeHeadline(doc):
     runner.bold = True
     runner.underline = True
 
+    style = doc.styles['Body Text']
+    font = style.font
+    font.name = 'Times New Roman'
+    font.size = Pt(10)
+
+    # footer
+    footer = doc.sections[0].footer
+    myFooter = footer.add_paragraph('DEWD 272/2/18/57/Batalion Szkolny/20'
+                                    '                                 '
+                                    '                                                                        ')
+    myFooter.style = doc.styles['Body Text']
+    runnerFooter = myFooter.add_run('JAWNE')
+    runnerFooter.bold = True
+    runnerFooter.underline = True
+
+    numberOfPage = footer.add_paragraph()
+    numberOfPage.add_run('1/1')
+    numberOfPage.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+    # koniec footera
+
+    #### dodawanie naglowka ####
+    tommorow = date.today() + timedelta(days=1)
+    dataOfOrder = tommorow.strftime("%d.%m.%Y")
+    header = doc.sections[0].header
+    p1 = header.add_paragraph()
+    p1.add_run('Warszawa dn. ' + dataOfOrder + ' r.').bold = True
+    p1.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+
+    p2 = header.add_paragraph()
+    p2.add_run('                             2 BATALION SZKOLNY \n'
+               '             WOJSKOWA AKADEMIA TECHNICZNA                                                   ').bold = True
+    runner = p2.add_run('JAWNE\n')
+    runner.bold = True
+    runner.underline = True
+
+    headOfDoc2 = 'im. Jarosława Dąbrowskiego'
+    convertHeadOfDoc2 = json.dumps(headOfDoc2)
+    finalHeadOfDoc2 = json.loads(convertHeadOfDoc2)
+    runner = p2.add_run('                                     ' + finalHeadOfDoc2 +
+                        '                                                                      Egzemplarz pojedynczy')
+    font2 = runner.font
+    font2.name = 'Times New Roman'
+    font2.size = Pt(10)
+    runner.bold = True
+
+    # koniec nagłowka
+
+
 def makePJ(request,pjList,doc):
     personToPJ = []
     for i in pjList:
@@ -281,11 +335,11 @@ def makePJ(request,pjList,doc):
     paragraph2.add_run('7. PRZEPUSTKI JEDNORAZOWE').bold = True
     paragraph2 = doc.add_paragraph()
     paragraph2.style = doc.styles['Normal']
-    paragraph2.add_run('    a) z 5 kp.').bold = True
+    paragraph2.add_run('a) z 5 kp.').bold = True
 
     table = doc.add_table(rows=0, cols=6)
     table.style = 'Table Grid'
-    table.alignment = WD_TABLE_ALIGNMENT.RIGHT
+    table.alignment = WD_TABLE_ALIGNMENT.LEFT
     iterator = 1
     for i in personToPJ:
         row_cells = table.add_row().cells
@@ -324,11 +378,11 @@ def makeHDK(request,hdkList,doc):
     paragraph2.add_run('4) z tytułu honorowego krwiodastwa').bold = True
     paragraph2 = doc.add_paragraph()
     paragraph2.style = doc.styles['Normal']
-    paragraph2.add_run('    a) z 5 kp.').bold = True
+    paragraph2.add_run('a) z 5 kp.').bold = True
 
     table = doc.add_table(rows=0, cols=8)
     table.style = 'Table Grid'
-    table.alignment = WD_TABLE_ALIGNMENT.RIGHT
+    table.alignment = WD_TABLE_ALIGNMENT.LEFT
     iterator = 1
     for i in personToHDK:
         row_cells = table.add_row().cells
@@ -371,11 +425,11 @@ def makeUn(request,unList,doc):
     paragraph2.add_run('4) nagrodowy:').bold = True
     paragraph2 = doc.add_paragraph()
     paragraph2.style = doc.styles['Normal']
-    paragraph2.add_run('    a) z 5 kp.').bold = True
+    paragraph2.add_run('a) z 5 kp.').bold = True
 
     table = doc.add_table(rows=0, cols=8)
     table.style = 'Table Grid'
-    table.alignment = WD_TABLE_ALIGNMENT.RIGHT
+    table.alignment = WD_TABLE_ALIGNMENT.LEFT
     iterator = 1
     for i in personToUn:
         row_cells = table.add_row().cells
@@ -418,11 +472,11 @@ def makeUo(request,uoList,doc):
     paragraph2.add_run('3) okolicznościowy').bold = True
     paragraph2 = doc.add_paragraph()
     paragraph2.style = doc.styles['Normal']
-    paragraph2.add_run('    a) z 5 kp.').bold = True
+    paragraph2.add_run('a) z 5 kp.').bold = True
 
     table = doc.add_table(rows=0, cols=8)
     table.style = 'Table Grid'
-    table.alignment = WD_TABLE_ALIGNMENT.RIGHT
+    table.alignment = WD_TABLE_ALIGNMENT.LEFT
     iterator = 1
     for i in personToUo:
         row_cells = table.add_row().cells

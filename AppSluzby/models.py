@@ -16,6 +16,7 @@ class Duty(models.Model):
         ('Str', 'Strzelnica'),
         ('Pst', 'PST'),
         ('Bat', 'Batalionowa'),
+        ('War', 'Wartownicza')
     )
 
     idDuty = models.AutoField(primary_key=True)
