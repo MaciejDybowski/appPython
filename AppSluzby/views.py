@@ -68,7 +68,7 @@ class HomePageView(TemplateView):
         # pobieranie listy osob i liczenie ile maja sluzb
         personList = Person.objects.all()
         for i in personList:
-            numberOfDuty = 0.0
+            numberOfDuty = i.numberOfDuty
             Dutys = PersonOnDuty.objects.filter(idPerson=i.idPerson)
             for p in Dutys:
                 numberOfDuty += counter(p.idDuty.typeOfDuty)
@@ -77,9 +77,9 @@ class HomePageView(TemplateView):
         # koniec liczenia
 
         person = Person.objects.order_by(Coalesce('numberOfDuty','surname').desc())     #lista wszystkich osob sortowana
-        best = person[:5]   # pobranie tylko 5 pierwszych indeksow
+        best = person[:10]   # pobranie tylko 5 pierwszych indeksow
         person = Person.objects.order_by(Coalesce('numberOfDuty', 'surname').asc()) # lista wszystkch sortowana asc
-        worst = person[:5]  # pobranie tylko 5 pierwszych indeksow
+        worst = person[:10]  # pobranie tylko 5 pierwszych indeksow
         return render(request, 'index.html', {'best': best,'worst':worst,'all':personList})
 
 
@@ -100,7 +100,7 @@ class CeremonyHomePage(TemplateView):
         # pobranie listy wszystkich osob i policzenie ile laczenie maja godzin spedzonych na pedalowach
         personList = Person.objects.all()
         for i in personList:
-            numberOfDuration = 0.0
+            numberOfDuration = i.numberOfCeremony
             Ceremonys = PersonOnCeremony.objects.filter(idPerson=i.idPerson)
             for p in Ceremonys:
                 numberOfDuration += p.idCeremony.duration
@@ -109,6 +109,7 @@ class CeremonyHomePage(TemplateView):
         # koniec listy osob
 
         personList.order_by(Coalesce('numberOfCeremony', 'surname').desc()) #sortowanie listy ze wzgledu na nazwiska
+
         return render(request, 'ceremony.html', {'all':personList})
 
 
