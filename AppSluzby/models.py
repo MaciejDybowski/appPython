@@ -6,7 +6,9 @@ class Person(models.Model):
     degree = models.CharField(max_length=40)
     name = models.CharField(max_length=40)
     surname = models.CharField(max_length=40)
+    defaultDuty = models.FloatField(default=0)
     numberOfDuty = models.FloatField(default=0)
+    defaultCeremony = models.FloatField(default=0)
     numberOfCeremony = models.FloatField(default=0)
 
 class Duty(models.Model):

@@ -35,8 +35,8 @@ def counter(type):  # funkcja typu switch case bo nie pythonie nie ma domyslnie 
 
 class HomePageView(TemplateView):
     def get(self, request, **kwargs):
-        import xlrd
-        """loc = ("Pluton.xlsx")
+        '''import xlrd
+        loc = ("Pluton.xlsx")
         wb = xlrd.open_workbook(loc)
         sheet = wb.sheet_by_index(0)
         rows = sheet.nrows
@@ -45,10 +45,12 @@ class HomePageView(TemplateView):
             degreeTemp = sheet.cell_value(i,0)
             nameTemp = sheet.cell_value(i, 1)
             surnameTemp = sheet.cell_value(i, 2)
-            dutyTemp = sheet.cell_value(i,3)
-            ceremonyTemp = sheet.cell_value(i,4)
-            Person.objects.create(degree=degreeTemp, name=nameTemp,surname=surnameTemp,numberOfDuty=dutyTemp,
-                                  numberOfCeremony=ceremonyTemp)
+            dutyDefaultTemp = sheet.cell_value(i,3)
+            dutyTemp = sheet.cell_value(i,4)
+            ceremonyDefaultTemp = sheet.cell_value(i,5)
+            ceremonyTemp = sheet.cell_value(i,6)
+            Person.objects.create(degree=degreeTemp, name=nameTemp,surname=surnameTemp, defaultDuty=dutyDefaultTemp,
+             numberOfDuty=dutyTemp, defaultCeremony = ceremonyDefaultTemp ,numberOfCeremony=ceremonyTemp)
             i = i + 1
 
 
@@ -63,16 +65,16 @@ class HomePageView(TemplateView):
             tSoldier.name = sheet.cell_value(i, 1)
             tSoldier.surname = sheet.cell_value(i, 2)
             tSoldier.save()
-            i = i + 1"""
+            i = i + 1'''
 
         # pobieranie listy osob i liczenie ile maja sluzb
         personList = Person.objects.all()
         for i in personList:
-            numberOfDuty = i.numberOfDuty
+            numberOfDuty = 0
             Dutys = PersonOnDuty.objects.filter(idPerson=i.idPerson)
             for p in Dutys:
                 numberOfDuty += counter(p.idDuty.typeOfDuty)
-            i.numberOfDuty = numberOfDuty
+            i.numberOfDuty =  numberOfDuty + i.defaultDuty
             i.save()
         # koniec liczenia
 
@@ -104,7 +106,7 @@ class CeremonyHomePage(TemplateView):
             Ceremonys = PersonOnCeremony.objects.filter(idPerson=i.idPerson)
             for p in Ceremonys:
                 numberOfDuration += p.idCeremony.duration
-            i.numberOfCeremony = numberOfDuration
+            i.numberOfCeremony = numberOfDuration + i.defaultCeremony
             i.save()
         # koniec listy osob
 
